@@ -1,0 +1,15 @@
+format = 2
+name = "Australis USB Drivers"
+version = "0.1.0"
+type = "driver"
+output = "usb.drv"
+sources = [
+	"./program.hy"
+]
+project_references = []
+
+[package]
+id = "Australis.drivers.usb"
+description = ""
+authors = ["Aurora Softwares"]
+license = "MIT"

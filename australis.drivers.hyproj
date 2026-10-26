@@ -1,0 +1,13 @@
+format = 2
+name = "Australis Drivers"
+type = "collection"
+sources = []
+project_references = [
+	"usb/australis.drivers.usb.hyproj"
+]
+
+[package]
+id = "Australis.drivers"
+description = ""
+authors = ["Aurora Softwares"]
+license = "MIT"
