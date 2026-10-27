@@ -1,12 +1,15 @@
 public class DriverMain {
 	public static int Run(long context) {
 		if (context < 4096) { return 1; }
-		// The xHCI controller is still owned by the built-in kernel driver.
-		// Check its mapped capability register before accepting this module.
-		long mmio = System.Kernel.Memory.Read64(context + 2368);
-		if (mmio == 0) { return 0; }
-		long capability = System.Kernel.Memory.Read32(mmio);
-		if (capability == 0 || capability == 4294967295) { return 2; }
+		if (System.Kernel.Memory.Read32(context) != 2 ||
+			System.Kernel.Memory.Read32(context + 4) != 1 ||
+			System.Kernel.Memory.Read32(context + 64) != 1) { return 2; }
+		long mmio = System.Kernel.Memory.Read64(context + 32);
+		long length = System.Kernel.Memory.Read64(context + 40);
+		if (mmio < 4096 || length < 4096) { return 3; }
+		int capabilityLength = System.Kernel.Memory.Read32(mmio) % 256;
+		if (capabilityLength < 32 || capabilityLength > 252) { return 4; }
+		System.Kernel.Memory.Write32(context + 72, capabilityLength);
 		return 0;
 	}
 }
