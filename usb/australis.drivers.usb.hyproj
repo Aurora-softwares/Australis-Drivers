@@ -2,7 +2,7 @@ format = 2
 name = "Australis USB Drivers"
 version = "0.1.0"
 type = "driver"
-output = "usb.drv"
+output = "usb.driver"
 sources = [
 	"./program.hy"
 ]
